@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{review.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content" class="container">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{review.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/reviews/add}" class="btn btn-primary ms-2">[[#{review.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${reviews.empty}">[[#{review.list.empty}]]</div>
+            <div th:if="${!reviews.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{review.reviewId.label}]]</th>
+                            <th scope="col">[[#{review.stars.label}]]</th>
+                            <th scope="col">[[#{review.rating.label}]]</th>
+                            <th scope="col">[[#{review.reviewDate.label}]]</th>
+                            <th scope="col">[[#{review.order.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="review : ${reviews}">
+                            <td>[[${review.reviewId}]]</td>
+                            <td>[[${review.stars}]]</td>
+                            <td>[[${review.rating}]]</td>
+                            <td>[[${review.reviewDate}]]</td>
+                            <td>[[${review.order}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/reviews/edit/{reviewId}(reviewId=${review.reviewId})}" class="btn btn-sm btn-secondary">[[#{review.list.edit}]]</a>
+                                    <form th:action="@{/reviews/delete/{reviewId}(reviewId=${review.reviewId})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{review.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

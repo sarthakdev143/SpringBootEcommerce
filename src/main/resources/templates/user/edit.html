@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>[[#{user.edit.headline}]]</title>
+</head>
+
+<body>
+    <div layout:fragment="content" class="container">
+        <div class="d-flex flex-wrap mb-4">
+            <h1 class="flex-grow-1">[[#{user.edit.headline}]]</h1>
+            <div>
+                <a th:href="@{/users}" class="btn btn-secondary">[[#{user.edit.back}]]</a>
+            </div>
+        </div>
+        <div th:replace="~{fragments/forms::globalErrors('user')}" />
+        <form th:action="${requestUri}" method="post">
+            <div
+                th:replace="~{fragments/forms::inputRow(object='user', field='userId', disabled=true, type='number')}" />
+            <div class="user-details" style="margin-top: 20px;">
+                <p><strong>User Name:</strong> <span th:text="${user.userName}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+                <p><strong>Password:</strong> <span th:text="${user.password}"></span></p>
+                <p><strong>Created At:</strong> <span th:text="${user.createdAt}"></span></p>
+            </div>
+            <div class="form-group">
+                <label for="roleId">Select Roles:</label>
+                <div class="form-check" th:each="role : ${roles}">
+                    <div class="form-check">
+                        <input type="checkbox" th:field="${user.roleId}" th:value="${role.id}"
+                            class="form-check-input" id="${'checkbox-' + role.id}" />
+                        <label class="form-check-label" for="${'checkbox-' + role.id}">
+                            <span th:text="${role.name}"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" th:value="#{user.edit.headline}" class="btn btn-primary mt-4" />
+
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>[[#{order.list.headline}]]</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-2 p-0">
+                    <div class="bg-body-tertiary " id="sidebarCollapse">
+                        <a href="/"
+                            class="d-flex justify-content-center align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                            <span class="fs-4">Grain Market</span>
+                        </a>
+                        <hr>
+                        <ul class="nav nav-pills flex-column mb-3">
+                            <li class="nav-item">
+                                <a th:href="@{/farmer}" class="nav-link link-body-emphasis text-center"
+                                    aria-current="page">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/farmer/orders}" class="nav-link active text-center">
+                                    Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/farmer/crops}" class="nav-link link-body-emphasis text-center">
+                                    Crops
+                                </a>
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="dropdown">
+                            <a href="#"
+                                class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img th:src="@{/images/profileImg.png}" alt="profile" width="32" height="32"
+                                    class="rounded-circle me-2">
+                                <strong>Lucky Mourya </strong>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow">
+                                <li><a class="dropdown-item" href="#">New project...</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" th:href="@{/logout}">Sign out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col " style="padding-left: 15; padding-right: 15px;">
+                    <!-- main -->
+                    <h1>My Orders !!</h1>
+                    <div th:if="${orders.empty}">[[#{order.list.empty}]]</div>
+                    <div th:if="${!orders.empty}" class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col">[[#{order.orderId.label}]]</th>
+                                    <th scope="col">[[#{order.quantity.label}]]</th>
+                                    <th scope="col">[[#{order.totalPrice.label}]]</th>
+                                    <th scope="col">[[#{order.orderDate.label}]]</th>
+                                    <th scope="col">[[#{order.buyer.label}]]</th>
+                                    <th scope="col">[[#{order.grain.label}]]</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="order : ${orders}">
+                                    <td>[[${order.orderId}]]</td>
+                                    <td>[[${order.quantity}]]</td>
+                                    <td>[[${order.totalPrice}]]</td>
+                                    <td>[[${order.orderDate}]]</td>
+                                    <td>[[${order.buyer}]]</td>
+                                    <td>[[${order.grain}]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

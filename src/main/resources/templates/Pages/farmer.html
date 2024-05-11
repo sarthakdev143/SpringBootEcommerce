@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>[[#{order.list.headline}]]</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-2 p-0">
+                    <div class="bg-body-tertiary " id="sidebarCollapse">
+                        <a href="/"
+                            class="d-flex justify-content-center align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                            <span class="fs-4">Grain Market</span>
+                        </a>
+                        <hr>
+                        <ul class="nav nav-pills flex-column mb-3">
+                            <li class="nav-item">
+                                <a th:href="@{/farmer}" class="nav-link active text-center" aria-current="page">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/farmer/orders}" class="nav-link text-center link-body-emphasis">
+                                    Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/farmer/crops}" class="nav-link text-center link-body-emphasis">
+                                    Crops
+                                </a>
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="dropdown">
+                            <a href="#"
+                                class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img th:src="@{/images/profileImg.png}" alt="profile" width="32" height="32"
+                                    class="rounded-circle me-2">
+                                <strong>Lucky Mourya </strong>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow">
+                                <li><a class="dropdown-item" href="#">New project...</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" th:href="@{/logout}">Sign out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col" style="padding-left: 15; padding-right: 15px;">
+                    <!-- main -->
+                    <header>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1 class="h2 dashboard-title">Farmer's Dashboard</h1>
+                            <div class="btn-group">
+                                <a th:href="@{/farmer/crops}" class="btn btn-sm btn-outline-primary">
+                                    + Add Crop
+                                </a>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Crop Details</h5>
+                                    <p class="card-text">Crop: Cardamom</p>
+                                    <p class="card-text">Area: 53 Acre</p>
+                                    <p class="card-text">Last Production: 1200 kg</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Air Temperature</h5>
+                                    <p class="card-text">38°C</p>
+                                    <p class="card-text">High</p>
+                                    <a href="#" class="card-link">Compare with last time</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Orders</h5>
+                                    <p class="card-text">Active Orders: <span class="badge bg-primary">3</span></p>
+                                    <p class="card-text">Pending Orders: <span class="badge bg-warning">1</span></p>
+                                    <a th:href="@{/farmer/orders}" class="card-link">View All Orders</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h2 class="mt-4">Feedback</h2>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-text">"Great quality cardamom! Very happy with the purchase." - John Smith
+                                (Buyer)</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">2 days ago</small>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Reply</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-text">"The delivery could have been faster." - Jane Doe (Buyer)</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">1 week ago</small>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Reply</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h2>Chat with Vendor</h2>
+                    <div class="card">
+                        <div class="card-header">
+                            John Smith (Vendor)
+                        </div>
+                        <div class="card-body">
+                            <div class="chat-container">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Type your message..."
+                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <button class="btn btn-outline-primary" type="button">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h2>Reviews</h2>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <h5>John Smith</h5>
+                                    <p class="text-muted mb-0">Buyer</p>
+                                </div>
+                                <span class="badge bg-success">4.5 Stars</span>
+                            </div>
+                            <p class="card-text">"Great communication and fast shipping. The cardamom is fresh and high
+                                quality."</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <h5>Jane Doe</h5>
+                                    <p class="text-muted mb-0">Buyer</p>
+                                </div>
+                                <span class="badge bg-warning">3.8 Stars</span>
+                            </div>
+                            <p class="card-text">"The product was good, but the delivery could have been faster."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

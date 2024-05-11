@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{review.add.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content" class="container">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{review.add.headline}]]</h1>
+                <div>
+                    <a th:href="@{/reviews}" class="btn btn-secondary">[[#{review.add.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('review')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='review', field='stars', required=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='review', field='rating', required=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='review', field='comment', required=true, type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='review', field='reviewDate', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='review', field='order', required=true, type='select')}" />
+                <input type="submit" th:value="#{review.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{message.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content" class="container">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{message.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/messages/add}" class="btn btn-primary ms-2">[[#{message.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${messages.empty}">[[#{message.list.empty}]]</div>
+            <div th:if="${!messages.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{message.messageId.label}]]</th>
+                            <th scope="col">[[#{message.sendDate.label}]]</th>
+                            <th scope="col">[[#{message.sender.label}]]</th>
+                            <th scope="col">[[#{message.receiver.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="message : ${messages}">
+                            <td>[[${message.messageId}]]</td>
+                            <td>[[${message.sendDate}]]</td>
+                            <td>[[${message.sender}]]</td>
+                            <td>[[${message.receiver}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/messages/edit/{messageId}(messageId=${message.messageId})}" class="btn btn-sm btn-secondary">[[#{message.list.edit}]]</a>
+                                    <form th:action="@{/messages/delete/{messageId}(messageId=${message.messageId})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{message.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
