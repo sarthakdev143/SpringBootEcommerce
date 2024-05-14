@@ -7,11 +7,8 @@ import java.math.BigDecimal;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -20,16 +17,16 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 @Document
 @Getter
 @Setter
-public class Grain {
+public class Product {
 
     @Id
-    private Integer grainId;
+    private Integer productId;
 
-    private String grainName;
+    @Size(max = 50)
+    private String name;
 
     private String description;
 
-    @NotNull
     @Digits(integer = 12, fraction = 2)
     @Field(targetType = FieldType.DECIMAL128)
     private BigDecimal price;
@@ -37,13 +34,18 @@ public class Grain {
     private Integer quantity;
 
     @DocumentReference(lazy = true)
-    private User seller;
+    @NotNull
+    private User user;
 
-    @DocumentReference(lazy = true, lookup = "{ 'grain' : ?#{#self._id} }")
+    @DocumentReference(lazy = true, lookup = "{ 'product' : ?#{#self._id} }")
     @ReadOnlyProperty
-    private Set<Order> grainOrders;
+    private Set<Order> orders;
 
-    byte[] thumbnail;
+    @DocumentReference(lazy = true)
+    private Category category;
 
-    Set<byte[]> fieldIamgs;
+    private byte[] thumbnail;
+
+    private Set<byte[]> fieldIamgs;
+
 }

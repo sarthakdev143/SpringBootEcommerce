@@ -29,6 +29,6 @@ public class OrderDTO {
     private Integer buyer;
 
     @NotNull
-    private Integer grain;
+    private Integer product;
 
 }

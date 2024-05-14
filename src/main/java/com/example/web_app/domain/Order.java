@@ -28,9 +28,7 @@ public class Order {
 
     @NotNull
     @Digits(integer = 12, fraction = 2)
-    @Field(
-            targetType = FieldType.DECIMAL128
-    )
+    @Field(targetType = FieldType.DECIMAL128)
     private BigDecimal totalPrice;
 
     private LocalDateTime orderDate;
@@ -41,7 +39,7 @@ public class Order {
 
     @DocumentReference(lazy = true)
     @NotNull
-    private Grain grain;
+    private Product product;
 
     @DocumentReference(lazy = true, lookup = "{ 'order' : ?#{#self._id} }")
     @ReadOnlyProperty

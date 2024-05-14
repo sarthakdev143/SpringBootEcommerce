@@ -14,29 +14,29 @@
                     <div class="bg-body-tertiary " id="sidebarCollapse">
                         <a href="/"
                             class="d-flex justify-content-center align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                            <span class="fs-4">Grain Market</span>
+                            <span class="fs-4">---</span>
                         </a>
                         <hr>
                         <ul class="nav nav-pills flex-column mb-3">
                             <li class="nav-item ">
-                                <a th:href="@{/farmer}" class="nav-link link-body-emphasis text-center"
+                                <a th:href="@{/product}" class="nav-link link-body-emphasis text-center"
                                     aria-current="page">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{/farmer/orders}" class="nav-link link-body-emphasis text-center">
+                                <a th:href="@{/product/orders}" class="nav-link link-body-emphasis text-center">
                                     Orders
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{/farmer/crops}" class="nav-link active text-center">
+                                <a th:href="@{/product/upload}" class="nav-link active text-center">
                                     Crops
                                 </a>
                             </li>
                         </ul>
                         <hr>
-                        <div class="dropdown">
+                        <div class="dropdown d-flex justify-content-center align-items-center">
                             <a href="#"
                                 class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,10 +55,8 @@
                             </ul>
                         </div>
                     </div>
-
                 </div>
                 <div class="col" style="padding-left: 15; padding-right: 15px;">
-
                     <style>
                         /* Add custom styles here */
                         .image-preview {
@@ -71,28 +69,27 @@
                             margin-bottom: 10px;
                         }
                     </style>
-
                     <!-- main -->
-                    <h1>Add Grains</h1>
-                    <form role="form" th:action="@{/farmer/crops/submit}" method="post" th:object="${obj}"
-                        enctype="multipart/form-data">
+                    <h1>Add Products</h1>
+                    <br>
+                    <form role="form" th:action="@{/product/upload/submit}" method="post" th:object="${obj}"
+                        enctype="multipart/form-data" id="productForm">
 
-                        <!-- Grain Name -->
                         <div class="form-group">
-                            <label for="grainName">Grain Name:</label>
-                            <input type="text" class="form-control" id="grainName" name="grainName"
-                                th:field="*{grainName}" required>
+                            <label for="name">--- Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" th:field="*{name}"
+                                required>
                         </div>
 
                         <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <textarea class="form-control" id="description" name="description" th:field="*{description}"
-                                required></textarea>
+                            <textarea class="form-control" id="description" name="description"
+                                th:field="*{description}" required></textarea>
                         </div>
                         <!-- Price -->
                         <div class="form-group">
-                            <label for="price">Price as per gram*</label>
+                            <label for="price">Price</label>
                             <input type="text" class="form-control" id="price" name="price" th:field="*{price}"
                                 required>
                         </div>
@@ -103,8 +100,16 @@
                                 th:field="*{quantity}" required>
                         </div>
 
-                        <!-- Quantity -->
-
+                        <div class="form-group">
+                            <label for="categoryId" class="col-form-label">Category:</label>
+                            <select class="form-control" id="categoryId" th:field="*{category}" name="categoryId"
+                                required>
+                                <option th:each="category : ${categories}" th:value="${category.id}"
+                                    th:text="${category.name}"></option>
+                            </select>
+                        </div>
+                        <br>
+                        <br>
                         <!-- Thumbnail -->
                         <div class="form-group">
                             <label for="thumbnail">Thumbnail (Max 1 MB):</label>
@@ -114,6 +119,7 @@
                             <img id="thumbnail-preview" class="image-preview" src="#" alt="Thumbnail Preview" />
                         </div>
 
+                        <br>
                         <!-- Field Images -->
                         <div class="form-group">
                             <label for="fieldImages">Field Images (Max 1 MB each, up to 5 images):</label>
@@ -122,10 +128,13 @@
                             <!-- Image Previews -->
                             <div id="fieldImages-preview" class="image-preview"></div>
                         </div>
+                        <br>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
 
                     </form>
+                    <br>
+
                     <!-- JavaScript to display image previews and handle validations -->
                     <script>
                         // Display thumbnail preview
@@ -177,7 +186,7 @@
                         });
 
                         // Form submission validation
-                        document.getElementById('grainForm').addEventListener('submit', function (event) {
+                        document.getElementById('productForm').addEventListener('submit', function (event) {
                             var fieldImagesInput = document.getElementById('fieldImages');
                             if (fieldImagesInput.files && fieldImagesInput.files.length > 5) {
                                 alert('You can only select up to 5 images');
@@ -185,36 +194,41 @@
                             }
                         });
                     </script>
-                    <h1>My crops list</h1>
-                    <div th:if="${grains.empty}">[[#{grain.list.empty}]]</div>
-                    <div th:if="${!grains.empty}" class="table-responsive">
+                    <h1>My Product List</h1>
+                    <br>
+                    <div th:if="${products.empty}">[[#{product.list.empty}]]</div>
+                    <br>
+                    <div th:if="${!products.empty}" class="table-responsive">
                         <table class="table table-striped table-hover align-middle">
                             <thead>
                                 <tr>
-                                    <th scope="col">[[#{grain.grainId.label}]]</th>
-                                    <th scope="col">[[#{grain.grainName.label}]]</th>
-                                    <th scope="col">[[#{grain.price.label}]]</th>
-                                    <th scope="col">[[#{grain.quantity.label}]]</th>
-                                    <th scope="col">[[#{grain.seller.label}]]</th>
+                                    <th scope="col">[[#{product.productId.label}]]</th>
+                                    <th scope="col">[[#{product.name.label}]]</th>
+                                    <th scope="col">[[#{product.price.label}]]</th>
+                                    <th scope="col">[[#{product.quantity.label}]]</th>
+                                    <th scope="col">[[#{product.user.label}]]</th>
+                                    <th scope="col">[[#{product.category.label}]]</th>
                                     <th><!-- --></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="grain : ${grains}">
-                                    <td>[[${grain.grainId}]]</td>
-                                    <td>[[${grain.grainName}]]</td>
-                                    <td>[[${grain.price}]]</td>
-                                    <td>[[${grain.quantity}]]</td>
-                                    <td>[[${grain.seller}]]</td>
+                                <tr th:each="product : ${products}">
+                                    <td>[[${product.productId}]]</td>
+                                    <td>[[${product.name}]]</td>
+                                    <td>[[${product.price}]]</td>
+                                    <td>[[${product.quantity}]]</td>
+                                    <td>[[${product.user}]]</td>
+                                    <td>[[${product.category}]]</td>
                                     <td>
                                         <div class="float-end text-nowrap">
-                                            <a th:href="@{/grains/edit/{grainId}(grainId=${grain.grainId})}"
-                                                class="btn btn-sm btn-secondary">[[#{grain.list.edit}]]</a>
-                                            <form th:action="@{/grains/delete/{grainId}(grainId=${grain.grainId})}"
+                                            <a th:href="@{/products/edit/{productId}(productId=${product.productId})}"
+                                                class="btn btn-sm btn-secondary">[[#{product.list.edit}]]</a>
+                                            <form
+                                                th:action="@{/products/delete/{productId}(productId=${product.productId})}"
                                                 th:data-confirm-message="#{delete.confirm}" method="post"
                                                 class="js-submit-confirm d-inline">
                                                 <button type="submit"
-                                                    class="btn btn-sm btn-secondary">[[#{grain.list.delete}]]</button>
+                                                    class="btn btn-sm btn-secondary">[[#{product.list.delete}]]</button>
                                             </form>
                                         </div>
                                     </td>

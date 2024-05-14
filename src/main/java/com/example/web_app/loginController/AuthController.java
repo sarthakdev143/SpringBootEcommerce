@@ -50,7 +50,7 @@ public class AuthController {
     @GetMapping("/signup")
     public String register(Model model) {
         UserDTO userDTO = new UserDTO();
-        userDTO.setRoleIdCount(Constant.ROLE_FARMER);
+        userDTO.setRoleIdCount(Constant.ROLE_SELLER);
         model.addAttribute("obj", userDTO);
         return "Pages/SingUp";
     }
@@ -64,7 +64,7 @@ public class AuthController {
         }
 
         Optional<Role> role = rolesRepository
-                .findById((userDTO.getRoleIdCount() != null) ? userDTO.getRoleIdCount() : Constant.ROLE_FARMER);
+                .findById((userDTO.getRoleIdCount() != null) ? userDTO.getRoleIdCount() : Constant.ROLE_SELLER);
 
         Set<Role> roles = new HashSet<>();
         if (role.isPresent()) {
@@ -78,12 +78,12 @@ public class AuthController {
             ROLE_BUYER.setId(Constant.ROLE_BUYER);
             ROLE_BUYER.setName("ROLE_BUYER");
 
-            Role ROLE_FARMER = new Role();
-            ROLE_FARMER.setId(Constant.ROLE_FARMER);
-            ROLE_FARMER.setName("ROLE_FARMER");
-            rolesRepository.saveAll(Arrays.asList(admin, ROLE_BUYER, ROLE_FARMER));
+            Role ROLE_SELLER = new Role();
+            ROLE_SELLER.setId(Constant.ROLE_SELLER);
+            ROLE_SELLER.setName("ROLE_SELLER");
+            rolesRepository.saveAll(Arrays.asList(admin, ROLE_BUYER, ROLE_SELLER));
             roles.add(admin);
-            roles.add(ROLE_FARMER);
+            roles.add(ROLE_SELLER);
             roles.add(ROLE_BUYER);
 
         }

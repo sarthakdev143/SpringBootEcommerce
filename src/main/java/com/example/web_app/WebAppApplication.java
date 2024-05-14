@@ -8,8 +8,7 @@ public class WebAppApplication {
 
     public static void main(final String[] args) {
         SpringApplication.run(WebAppApplication.class, args);
-        System.out.println("Grain Selling Portal server started");
-
+        System.out.println("server started");
     }
 
 }

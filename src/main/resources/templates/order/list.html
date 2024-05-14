@@ -22,7 +22,7 @@
                             <th scope="col">[[#{order.totalPrice.label}]]</th>
                             <th scope="col">[[#{order.orderDate.label}]]</th>
                             <th scope="col">[[#{order.buyer.label}]]</th>
-                            <th scope="col">[[#{order.grain.label}]]</th>
+                            <th scope="col">[[#{order.product.label}]]</th>
                             <th><!-- --></th>
                         </tr>
                     </thead>
@@ -33,7 +33,7 @@
                             <td>[[${order.totalPrice}]]</td>
                             <td>[[${order.orderDate}]]</td>
                             <td>[[${order.buyer}]]</td>
-                            <td>[[${order.grain}]]</td>
+                            <td>[[${order.product}]]</td>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/orders/edit/{orderId}(orderId=${order.orderId})}" class="btn btn-sm btn-secondary">[[#{order.list.edit}]]</a>

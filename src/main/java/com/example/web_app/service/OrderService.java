@@ -1,12 +1,12 @@
 package com.example.web_app.service;
 
-import com.example.web_app.domain.Grain;
 import com.example.web_app.domain.Order;
+import com.example.web_app.domain.Product;
 import com.example.web_app.domain.Review;
 import com.example.web_app.domain.User;
 import com.example.web_app.model.OrderDTO;
-import com.example.web_app.repos.GrainRepository;
 import com.example.web_app.repos.OrderRepository;
+import com.example.web_app.repos.ProductRepository;
 import com.example.web_app.repos.ReviewRepository;
 import com.example.web_app.repos.UserRepository;
 import com.example.web_app.util.NotFoundException;
@@ -21,14 +21,14 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
-    private final GrainRepository grainRepository;
+    private final ProductRepository productRepository;
     private final ReviewRepository reviewRepository;
 
     public OrderService(final OrderRepository orderRepository, final UserRepository userRepository,
-            final GrainRepository grainRepository, final ReviewRepository reviewRepository) {
+            final ProductRepository productRepository, final ReviewRepository reviewRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
-        this.grainRepository = grainRepository;
+        this.productRepository = productRepository;
         this.reviewRepository = reviewRepository;
     }
 
@@ -68,7 +68,7 @@ public class OrderService {
         orderDTO.setTotalPrice(order.getTotalPrice());
         orderDTO.setOrderDate(order.getOrderDate());
         orderDTO.setBuyer(order.getBuyer() == null ? null : order.getBuyer().getUserId());
-        orderDTO.setGrain(order.getGrain() == null ? null : order.getGrain().getGrainId());
+        orderDTO.setProduct(order.getProduct() == null ? null : order.getProduct().getProductId());
         return orderDTO;
     }
 
@@ -79,9 +79,9 @@ public class OrderService {
         final User buyer = orderDTO.getBuyer() == null ? null : userRepository.findById(orderDTO.getBuyer())
                 .orElseThrow(() -> new NotFoundException("buyer not found"));
         order.setBuyer(buyer);
-        final Grain grain = orderDTO.getGrain() == null ? null : grainRepository.findById(orderDTO.getGrain())
-                .orElseThrow(() -> new NotFoundException("grain not found"));
-        order.setGrain(grain);
+        final Product product = orderDTO.getProduct() == null ? null : productRepository.findById(orderDTO.getProduct())
+                .orElseThrow(() -> new NotFoundException("product not found"));
+        order.setProduct(product);
         return order;
     }
 

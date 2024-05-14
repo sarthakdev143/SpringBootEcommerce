@@ -34,9 +34,9 @@ public class User {
 
     private LocalDateTime createdAt;
 
-    @DocumentReference(lazy = true, lookup = "{ 'seller' : ?#{#self._id} }")
+    @DocumentReference(lazy = true, lookup = "{ 'user' : ?#{#self._id} }")
     @ReadOnlyProperty
-    private Set<Grain> sellerGrains;
+    private Set<Product> products;
 
     @DocumentReference(lazy = true, lookup = "{ 'buyer' : ?#{#self._id} }")
     @ReadOnlyProperty

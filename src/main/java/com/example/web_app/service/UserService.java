@@ -1,14 +1,14 @@
 package com.example.web_app.service;
 
-import com.example.web_app.domain.Grain;
 import com.example.web_app.domain.Message;
 import com.example.web_app.domain.Order;
+import com.example.web_app.domain.Product;
 import com.example.web_app.domain.Role;
 import com.example.web_app.domain.User;
 import com.example.web_app.model.UserDTO;
-import com.example.web_app.repos.GrainRepository;
 import com.example.web_app.repos.MessageRepository;
 import com.example.web_app.repos.OrderRepository;
+import com.example.web_app.repos.ProductRepository;
 import com.example.web_app.repos.RoleRepository;
 import com.example.web_app.repos.UserRepository;
 import com.example.web_app.util.NotFoundException;
@@ -26,16 +26,16 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final GrainRepository grainRepository;
+    private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
     private final MessageRepository messageRepository;
 
     public UserService(final UserRepository userRepository, final RoleRepository roleRepository,
-            final GrainRepository grainRepository, final OrderRepository orderRepository,
+            final ProductRepository productRepository, final OrderRepository orderRepository,
             final MessageRepository messageRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.grainRepository = grainRepository;
+        this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.messageRepository = messageRepository;
     }
@@ -106,10 +106,10 @@ public class UserService {
         final ReferencedWarning referencedWarning = new ReferencedWarning();
         final User user = userRepository.findById(userId)
                 .orElseThrow(NotFoundException::new);
-        final Grain sellerGrain = grainRepository.findFirstBySeller(user);
-        if (sellerGrain != null) {
-            referencedWarning.setKey("user.grain.seller.referenced");
-            referencedWarning.addParam(sellerGrain.getGrainId());
+        final Product userProduct = productRepository.findFirstByUser(user);
+        if (userProduct != null) {
+            referencedWarning.setKey("user.product.user.referenced");
+            referencedWarning.addParam(userProduct.getProductId());
             return referencedWarning;
         }
         final Order buyerOrder = orderRepository.findFirstByBuyer(user);

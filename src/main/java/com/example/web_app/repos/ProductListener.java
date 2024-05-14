@@ -1,6 +1,6 @@
 package com.example.web_app.repos;
 
-import com.example.web_app.domain.Grain;
+import com.example.web_app.domain.Product;
 import com.example.web_app.service.PrimarySequenceService;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class GrainListener extends AbstractMongoEventListener<Grain> {
+public class ProductListener extends AbstractMongoEventListener<Product> {
 
     private final PrimarySequenceService primarySequenceService;
 
-    public GrainListener(final PrimarySequenceService primarySequenceService) {
+    public ProductListener(final PrimarySequenceService primarySequenceService) {
         this.primarySequenceService = primarySequenceService;
     }
 
     @Override
-    public void onBeforeConvert(final BeforeConvertEvent<Grain> event) {
-        if (event.getSource().getGrainId() == null) {
-            event.getSource().setGrainId(((int)primarySequenceService.getNextValue()));
+    public void onBeforeConvert(final BeforeConvertEvent<Product> event) {
+        if (event.getSource().getProductId() == null) {
+            event.getSource().setProductId(((int)primarySequenceService.getNextValue()));
         }
     }
 

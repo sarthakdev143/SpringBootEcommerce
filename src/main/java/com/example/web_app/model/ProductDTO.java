@@ -8,30 +8,26 @@ import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
-public class GrainDTO {
+public class ProductDTO {
 
-    private Integer grainId;
+    private Integer productId;
 
-    @NotNull
     @Size(max = 50)
-    @GrainGrainNameUnique
-    private String grainName;
+    private String name;
 
-    @NotNull
     private String description;
 
-    @NotNull
     @Digits(integer = 12, fraction = 2)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
 
-    @NotNull
     private Integer quantity;
 
     @NotNull
-    private Integer seller;
+    private Integer user;
+
+    private Integer category;
 
 }

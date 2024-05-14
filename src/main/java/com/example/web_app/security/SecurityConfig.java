@@ -41,16 +41,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/signup/**").permitAll()
                         .requestMatchers("/login/**").permitAll()
-                        .requestMatchers("/buyer/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_BUYER")
-                        .requestMatchers("/farmer/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMER")
                         .requestMatchers("/users/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/roles/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/reviews/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/orders/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/messages/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/grains/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/products/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-
                         .anyRequest().authenticated())
 
                 .formLogin((form) -> form
@@ -71,7 +68,7 @@ public class SecurityConfig {
 
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/", "/about", "/contact", "/images/logo.png",
+        return (web) -> web.ignoring().requestMatchers("/", "/home", "/about", "/contact", "/images/logo.png",
                 "/images/login.jpg", "/images/signup.jpg", "/unAuthorized");
     }
 
@@ -93,18 +90,18 @@ class CustomSuccessHandler implements AuthenticationSuccessHandler {
         boolean isAdmin = authorities.stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
 
-        boolean isbuyer = authorities.stream()
+        boolean isBuyer = authorities.stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_BUYER"));
 
-        boolean isfarmer = authorities.stream()
-                .anyMatch(authority -> authority.getAuthority().equals("ROLE_FARMER"));
+        boolean isSeller = authorities.stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_SELLER"));
 
         if (isAdmin) {
             redirectStrategy.sendRedirect(request, response, "/admin");
-        } else if (isbuyer) {
+        } else if (isBuyer) {
             redirectStrategy.sendRedirect(request, response, "/buyer");
-        } else if (isfarmer) {
-            redirectStrategy.sendRedirect(request, response, "/farmer");
+        } else if (isSeller) {
+            redirectStrategy.sendRedirect(request, response, "/seller");
         } else {
             redirectStrategy.sendRedirect(request, response, "/?error=true");
         }

@@ -1,9 +1,9 @@
 package com.example.web_app.controller;
 
-import com.example.web_app.domain.Grain;
+import com.example.web_app.domain.Product;
 import com.example.web_app.domain.User;
 import com.example.web_app.model.OrderDTO;
-import com.example.web_app.repos.GrainRepository;
+import com.example.web_app.repos.ProductRepository;
 import com.example.web_app.repos.UserRepository;
 import com.example.web_app.service.OrderService;
 import com.example.web_app.util.CustomCollectors;
@@ -28,13 +28,13 @@ public class OrderController {
 
     private final OrderService orderService;
     private final UserRepository userRepository;
-    private final GrainRepository grainRepository;
+    private final ProductRepository productRepository;
 
     public OrderController(final OrderService orderService, final UserRepository userRepository,
-            final GrainRepository grainRepository) {
+            final ProductRepository productRepository) {
         this.orderService = orderService;
         this.userRepository = userRepository;
-        this.grainRepository = grainRepository;
+        this.productRepository = productRepository;
     }
 
     @ModelAttribute
@@ -42,9 +42,9 @@ public class OrderController {
         model.addAttribute("buyerValues", userRepository.findAll(Sort.by("userId"))
                 .stream()
                 .collect(CustomCollectors.toSortedMap(User::getUserId, User::getUserName)));
-        model.addAttribute("grainValues", grainRepository.findAll(Sort.by("grainId"))
+        model.addAttribute("productValues", productRepository.findAll(Sort.by("productId"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Grain::getGrainId, Grain::getGrainName)));
+                .collect(CustomCollectors.toSortedMap(Product::getProductId, Product::getProductId)));
     }
 
     @GetMapping
