@@ -1,10 +1,14 @@
 package com.example.web_app.loginController;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.web_app.domain.Order;
 import com.example.web_app.domain.Product;
+import com.example.web_app.domain.User;
 import com.example.web_app.model.ProductDTO;
 import com.example.web_app.repos.CategoryRepository;
 import com.example.web_app.repos.UserRepository;
@@ -29,8 +33,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BuyerController {
@@ -80,11 +82,11 @@ public class BuyerController {
         return "Pages/buyer";
     }
 
-
     @GetMapping("/buyer/filter/seller/{id}")
     public String getMethodName2(@PathVariable("id") int id, Model m) {
 
-        m.addAttribute("products", userRepository.findById(id).get().getProducts().stream().map(x -> productService.mapToDTO(x, new ProductDTO())).collect(Collectors.toList()));
+        m.addAttribute("products", userRepository.findById(id).get().getProducts().stream()
+                .map(x -> productService.mapToDTO(x, new ProductDTO())).collect(Collectors.toList()));
 
         List<UserDto2> sellers = roleRepository.findById(Constant.ROLE_SELLER).get().getUserId().stream()
                 .map(x -> new UserDto2(x.getUserId(), x.getUserName())).collect(Collectors.toList());
@@ -102,6 +104,18 @@ public class BuyerController {
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(post.getThumbnail());
+    }
+
+    @GetMapping("/order/{id}")
+    public String getOrder(@PathVariable int id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByEmail(username).get();
+        Product product = productRepository.findById(id).get();
+        Order order = new Order();
+
+        // changes
+        return "pages/Cart";
     }
 
 }

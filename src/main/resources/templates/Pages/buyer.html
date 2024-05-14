@@ -100,10 +100,10 @@
                                     <p class="card-text">Seller ID: <span th:text="${product.user}"></span></p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Add to
-                                                Cart
-                                            </button>
+                                            <a th:href="@{'/order/'+${product.productId}}" type="button"
+                                                class="btn btn-sm btn-outline-secondary">Order
+                                            </a>
+
                                         </div>
                                         <small class="text-body-secondary" th:text="${product.price}"></small>
                                     </div>
