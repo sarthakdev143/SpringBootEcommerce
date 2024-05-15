@@ -1,12 +1,9 @@
 package com.example.web_app.loginController;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,12 +25,14 @@ import com.example.web_app.repos.UserRepository;
 import com.example.web_app.service.CategoryService;
 import com.example.web_app.service.OrderService;
 import com.example.web_app.service.ProductService;
+
 import com.example.web_app.util.WebUtils;
 
 import java.util.List;
 
 @Controller
-public class MyController {
+@RequestMapping("/seller")
+public class SellerController {
 
     @Autowired
     CategoryRepository categoryRepository;
@@ -52,25 +52,21 @@ public class MyController {
     @Autowired
     CategoryService categoryService;
 
-    @PreAuthorize("hasAuthority('ROLE_SELLER')")
-    @GetMapping({ "/seller", "/sellers", "products", "/products_dashboard", "/product" })
+    @GetMapping
     public String getFarmer() {
         return "Pages/product";
     }
 
-    @PreAuthorize("hasAuthority('ROLE_SELLER')")
-    @GetMapping("/product/orders")
+    @GetMapping("/orders")
     public String getFarmers(Model model) {
         try {
             model.addAttribute("orders", orderService.findAll());
         } catch (Exception e) {
-            // Handle exception
             e.printStackTrace();
         }
         return "Pages/productOrders";
     }
 
-    @PreAuthorize("hasAuthority('ROLE_SELLER')")
     @GetMapping("/product/upload")
     public String getFarmers1(Model model) {
         try {
@@ -84,17 +80,15 @@ public class MyController {
             model.addAttribute("products", products);
             model.addAttribute("categories", categoryService.findAll());
         } catch (Exception e) {
-            // Handle exception
             e.printStackTrace();
         }
         return "Pages/productUpload";
     }
 
-    @PreAuthorize("hasAuthority('ROLE_SELLER')")
     @PostMapping("/product/upload/submit")
     public String submitForm(@ModelAttribute("obj") ProductDTO productDto,
             @RequestParam("thumbnail") MultipartFile thumbnail,
-            @RequestParam("fieldImages") MultipartFile[] fieldImages, final RedirectAttributes redirectAttributes)
+            final RedirectAttributes redirectAttributes)
             throws IOException {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -112,30 +106,14 @@ public class MyController {
             if (!thumbnail.isEmpty()) {
                 product.setThumbnail(thumbnail.getBytes());
             }
-            if (fieldImages != null) {
-                Set<byte[]> x = new HashSet<byte[]>();
-                for (MultipartFile a : fieldImages) {
-                    x.add(a.getBytes());
-                }
-                product.setFieldIamgs(x);
-            }
+
             productRepository.save(product);
             redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS,
                     WebUtils.getMessage("Product added successfully"));
         } catch (Exception e) {
-            // Handle exception
             redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR, WebUtils.getMessage(e.getMessage()));
         }
-        return "redirect:/product/upload";
+        return "redirect:/seller/product/upload";
     }
-
-
-
-    @GetMapping("/admin")
-    public String getAdmin() {
-        return "Pages/admin";
-    }
-
-    
 
 }

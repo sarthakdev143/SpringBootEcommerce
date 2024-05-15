@@ -4,11 +4,80 @@
 
 <head>
     <title>About Us</title>
+    <link rel="stylesheet" th:href="@{/css/about.css}" />
 </head>
 
 <body>
     <div layout:fragment="content" class="container">
-        <h1>About Us</h1>
+        <h1 class="text-center mb-4">About Us</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://source.unsplash.com/400x300/?farmer" alt="About Us Image" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+                <h2>Our Story</h2>
+                <p>FarmFresh was founded in 2020 with a vision to bridge the gap between local farmers and urban
+                    consumers. We saw a need for a platform that could connect the two, promoting sustainable
+                    agriculture and supporting the local economy.</p>
+                <h2>Our Mission</h2>
+                <p>Our mission is to provide a reliable and transparent marketplace for farmers to sell their fresh
+                    produce directly to consumers, ensuring fair prices and minimizing food waste. We strive to promote
+                    sustainable farming practices and encourage a healthier lifestyle.</p>
+                <h2>Our Values</h2>
+                <ul>
+                    <li>Transparency: We believe in being open and honest about our practices and the products we sell.
+                    </li>
+                    <li>Quality: We prioritize freshness and quality, ensuring that our customers receive the best
+                        produce.</li>
+                    <li>Sustainability: We promote environmentally-friendly farming practices and support local
+                        communities.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">For Farmers</h3>
+                        <p class="card-text">FarmFresh provides farmers with a direct sales channel, allowing them to
+                            reach a wider customer base and receive fair prices for their produce. Our platform
+                            eliminates middlemen, ensuring that farmers receive maximum profits.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">For Buyers</h3>
+                        <p class="card-text">Buyers can enjoy fresh, locally sourced produce with complete transparency
+                            about the origin and farming practices. Our competitive prices ensure that you get the best
+                            value for your money.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Our Impact</h3>
+                        <p class="card-text">By supporting local farmers and promoting sustainable practices, FarmFresh
+                            aims to reduce the carbon footprint of food transportation and minimize waste. We also
+                            contribute to the local economy by empowering small-scale farmers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="my-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h2 class="text-center mb-4">Join the FarmFresh Community</h2>
+                <p class="lead text-center">Become a part of our growing community and experience the freshness and
+                    quality of locally sourced produce. Register today and start your journey towards a healthier and
+                    more sustainable lifestyle.</p>
+                <div class="text-center">
+                    <a href="#" class="btn btn-primary btn-lg">Register Now</a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

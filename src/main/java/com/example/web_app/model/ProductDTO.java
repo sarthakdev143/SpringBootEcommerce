@@ -30,4 +30,5 @@ public class ProductDTO {
 
     private Integer category;
 
+    private int selectQuantity;
 }

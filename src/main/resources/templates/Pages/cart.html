@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Cart</title>
+</head>
+
+<body>
+    <div layout:fragment="content" class="container">
+        <h1>Cart</h1>
+        <div th:if="${orders.empty}">Cart is Empty</div>
+        <div th:if="${!orders.empty}" class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">[[#{order.orderId.label}]]</th>
+                        <th scope="col">[[#{order.orderDate.label}]]</th>
+                        <th scope="col">[[#{order.buyer.label}]]</th>
+                        <th scope="col">[[#{order.product.label}]]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order : ${orders}">
+                        <td>[[${order.orderId}]]</td>
+                        <td>[[${order.orderDate}]]</td>
+                        <td>[[${order.buyer}]]</td>
+                        <td>[[${order.product}]]</td>
+                        <td>
+                            <div class="float-end text-nowrap">
+                                <form th:action="@{/buyer/user/orders/delete/{orderId}(orderId=${order.orderId})}"
+                                    th:data-confirm-message="#{delete.confirm}" method="post"
+                                    class="js-submit-confirm d-inline">
+                                    <button type="submit"
+                                        class="btn btn-sm btn-danger">[[#{order.list.delete}]]</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="alert alert-info mt-3" role="alert">
+                Your order is being processed. The vendor will contact you soon.
+            </div>
+    
+        </div>
+
+    </div>
+</body>
+
+</html>

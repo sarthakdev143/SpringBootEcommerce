@@ -20,18 +20,18 @@
                         <hr>
                         <ul class="nav nav-pills flex-column mb-3">
                             <li class="nav-item">
-                                <a th:href="@{/product}" class="nav-link link-body-emphasis text-center"
+                                <a th:href="@{/seller}" class="nav-link link-body-emphasis text-center"
                                     aria-current="page">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{/product/orders}" class="nav-link active text-center">
+                                <a th:href="@{/seller/orders}" class="nav-link active text-center">
                                     Orders
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{/product/upload}" class="nav-link link-body-emphasis text-center">
+                                <a th:href="@{/seller/product/upload}" class="nav-link link-body-emphasis text-center">
                                     Crops
                                 </a>
                             </li>
@@ -73,7 +73,6 @@
                                     <th scope="col">[[#{order.orderDate.label}]]</th>
                                     <th scope="col">[[#{order.buyer.label}]]</th>
                                     <th scope="col">[[#{order.product.label}]]</th>
-                                    <th><!-- --></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,14 +85,7 @@
                                     <td>[[${order.product}]]</td>
                                     <td>
                                         <div class="float-end text-nowrap">
-                                            <a th:href="@{/orders/edit/{orderId}(orderId=${order.orderId})}"
-                                                class="btn btn-sm btn-secondary">[[#{order.list.edit}]]</a>
-                                            <form th:action="@{/orders/delete/{orderId}(orderId=${order.orderId})}"
-                                                th:data-confirm-message="#{delete.confirm}" method="post"
-                                                class="js-submit-confirm d-inline">
-                                                <button type="submit"
-                                                    class="btn btn-sm btn-secondary">[[#{order.list.delete}]]</button>
-                                            </form>
+                                            <a href="#" class="btn btn-sm btn-success">Details</a>
                                         </div>
                                     </td>
                                 </tr>

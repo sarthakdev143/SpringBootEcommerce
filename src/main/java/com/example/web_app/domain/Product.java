@@ -46,6 +46,5 @@ public class Product {
 
     private byte[] thumbnail;
 
-    private Set<byte[]> fieldIamgs;
 
 }

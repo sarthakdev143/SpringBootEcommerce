@@ -19,18 +19,18 @@
                         <hr>
                         <ul class="nav nav-pills flex-column mb-3">
                             <li class="nav-item ">
-                                <a th:href="@{/product}" class="nav-link link-body-emphasis text-center"
+                                <a th:href="@{/seller}" class="nav-link link-body-emphasis text-center"
                                     aria-current="page">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{/product/orders}" class="nav-link link-body-emphasis text-center">
+                                <a th:href="@{/seller/orders}" class="nav-link link-body-emphasis text-center">
                                     Orders
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{/product/upload}" class="nav-link active text-center">
+                                <a th:href="@{/seller/product/upload}" class="nav-link active text-center">
                                     Crops
                                 </a>
                             </li>
@@ -72,25 +72,24 @@
                     <!-- main -->
                     <h1>Add Products</h1>
                     <br>
-                    <form role="form" th:action="@{/product/upload/submit}" method="post" th:object="${obj}"
+                    <form role="form" th:action="@{/seller/product/upload/submit}" method="post" th:object="${obj}"
                         enctype="multipart/form-data" id="productForm">
 
                         <div class="form-group">
                             <label for="name">--- Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" th:field="*{name}"
-                                required>
+                            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
                         </div>
 
                         <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <textarea class="form-control" id="description" name="description"
-                                th:field="*{description}" required></textarea>
+                            <textarea class="form-control" id="description" name="description" th:field="*{description}"
+                                required></textarea>
                         </div>
                         <!-- Price -->
                         <div class="form-group">
                             <label for="price">Price</label>
-                            <input type="text" class="form-control" id="price" name="price" th:field="*{price}"
+                            <input type="number" class="form-control" id="price" name="price" th:field="*{price}"
                                 required>
                         </div>
 
@@ -120,22 +119,12 @@
                         </div>
 
                         <br>
-                        <!-- Field Images -->
-                        <div class="form-group">
-                            <label for="fieldImages">Field Images (Max 1 MB each, up to 5 images):</label>
-                            <input type="file" class="form-control-file" id="fieldImages" name="fieldImages"
-                                accept="image/*" multiple max="5" required>
-                            <!-- Image Previews -->
-                            <div id="fieldImages-preview" class="image-preview"></div>
-                        </div>
-                        <br>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
 
                     </form>
                     <br>
 
-                    <!-- JavaScript to display image previews and handle validations -->
                     <script>
                         // Display thumbnail preview
                         function previewThumbnail(input) {
@@ -144,7 +133,7 @@
                                 var reader = new FileReader();
                                 reader.onload = function (e) {
                                     preview.src = e.target.result;
-                                    preview.style.display = 'block'; // Show the previewCC
+                                    preview.style.display = 'block'; // Show the preview
                                 }
                                 reader.readAsDataURL(input.files[0]);
                             } else {
@@ -152,48 +141,27 @@
                             }
                         }
 
-                        // Function to display field images previews
-                        function previewFieldImages(input) {
-                            var previewContainer = document.getElementById('fieldImages-preview');
-                            previewContainer.innerHTML = ''; // Clear previous previews
-                            if (input.files) {
-                                if (input.files.length > 5) {
-                                    alert('You can only select up to 5 images');
-                                    input.value = ''; // Clear the selected files
-                                    return;
-                                }
-
-                                for (var i = 0; i < input.files.length; i++) {
-
-                                    var reader = new FileReader();
-                                    reader.onload = function (e) {
-                                        var img = document.createElement('img');
-                                        img.className = 'image-preview';
-                                        img.src = e.target.result;
-                                        previewContainer.appendChild(img);
-
-                                    }
-                                    reader.readAsDataURL(input.files[i]);
-                                }
-                            }
-                        }
-                        // Attach event listeners
+                        // Attach event listener to thumbnail input
                         document.getElementById('thumbnail').addEventListener('change', function () {
                             previewThumbnail(this);
-                        });
-                        document.getElementById('fieldImages').addEventListener('change', function () {
-                            previewFieldImages(this);
                         });
 
                         // Form submission validation
                         document.getElementById('productForm').addEventListener('submit', function (event) {
-                            var fieldImagesInput = document.getElementById('fieldImages');
-                            if (fieldImagesInput.files && fieldImagesInput.files.length > 5) {
-                                alert('You can only select up to 5 images');
-                                event.preventDefault(); // Prevent form submission
+                            var name = document.getElementById('name').value;
+                            var description = document.getElementById('description').value;
+                            var price = document.getElementById('price').value;
+                            var quantity = document.getElementById('quantity').value;
+                            var categoryId = document.getElementById('categoryId').value;
+                            var thumbnail = document.getElementById('thumbnail').value;
+
+                            if (!name || !description || !price || !quantity || !categoryId || !thumbnail) {
+                                event.preventDefault(); // Prevent form submission if any required field is empty
+                                alert('Please fill out all the required fields.');
                             }
                         });
                     </script>
+
                     <h1>My Product List</h1>
                     <br>
                     <div th:if="${products.empty}">[[#{product.list.empty}]]</div>
@@ -219,19 +187,6 @@
                                     <td>[[${product.quantity}]]</td>
                                     <td>[[${product.user}]]</td>
                                     <td>[[${product.category}]]</td>
-                                    <td>
-                                        <div class="float-end text-nowrap">
-                                            <a th:href="@{/products/edit/{productId}(productId=${product.productId})}"
-                                                class="btn btn-sm btn-secondary">[[#{product.list.edit}]]</a>
-                                            <form
-                                                th:action="@{/products/delete/{productId}(productId=${product.productId})}"
-                                                th:data-confirm-message="#{delete.confirm}" method="post"
-                                                class="js-submit-confirm d-inline">
-                                                <button type="submit"
-                                                    class="btn btn-sm btn-secondary">[[#{product.list.delete}]]</button>
-                                            </form>
-                                        </div>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>

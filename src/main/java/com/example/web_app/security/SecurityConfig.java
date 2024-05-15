@@ -41,13 +41,20 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/signup/**").permitAll()
                         .requestMatchers("/login/**").permitAll()
+
                         .requestMatchers("/users/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/roles/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/reviews/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/orders/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/messages/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/products/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/categories/**").hasAuthority("ROLE_ADMIN")
+
+                        .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
+
+                        .requestMatchers("/seller/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SELLER")
+                        .requestMatchers("/buyer/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_BUYER")
+
                         .anyRequest().authenticated())
 
                 .formLogin((form) -> form

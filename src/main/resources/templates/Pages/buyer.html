@@ -14,7 +14,7 @@
                 position: absolute;
                 z-index: 1000;
                 min-width: 10rem;
-                padding: .5rem 0;
+                padding: .5rem 0;  
                 margin: 0;
                 font-size: 1rem;
                 color: #212529;
@@ -74,9 +74,10 @@
 
                 </div>
 
-                <div class="justify-content-end">
-                    <div>Cart <span class="badge bg-secondary">0</span></div>
-                </div>
+                <a th:href="@{/buyer/user/cart}" class="justify-content-end text-decoration-none border rounded-pill px-2">
+                    <div>Cart <span th:text="${cartCount}" class="badge bg-secondary">0</span></div>
+                </a>
+
             </div>
         </header>
 
@@ -89,9 +90,11 @@
                             <div class="card shadow-sm">
 
                                 <img class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                    th:src="@{'/product/thumbnail/' + ${product.productId}}">
+                                    th:src="@{'/buyer/product/thumbnail/' + ${product.productId}}">
 
                                 <div class="card-body">
+                                    <h2 th:text="${product.name}">Product Name</h2>
+
                                     <p class="card-text" th:text="${product.description}"></p>
                                     <!-- Add remaining stock -->
                                     <p class="card-text">Remaining Stock: <span th:text="${product.quantity}"></span>
@@ -100,8 +103,8 @@
                                     <p class="card-text">Seller ID: <span th:text="${product.user}"></span></p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
-                                            <a th:href="@{'/order/'+${product.productId}}" type="button"
-                                                class="btn btn-sm btn-outline-secondary">Order
+                                            <a th:href="@{'/buyer/product/details/'+${product.productId}}" type="button"
+                                                class="btn btn-sm btn-outline-secondary">Details
                                             </a>
 
                                         </div>

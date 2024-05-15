@@ -23,4 +23,8 @@ public class HomeController {
         return "home/contact";
     }
 
+    @GetMapping("/admin")
+    public String getAdmin() {
+        return "Pages/admin";
+    }
 }

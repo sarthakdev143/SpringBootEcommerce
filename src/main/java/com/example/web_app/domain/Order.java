@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
-
 @Document
 @Getter
 @Setter
@@ -23,10 +22,8 @@ public class Order {
     @Id
     private Integer orderId;
 
-    @NotNull
     private Integer quantity;
 
-    @NotNull
     @Digits(integer = 12, fraction = 2)
     @Field(targetType = FieldType.DECIMAL128)
     private BigDecimal totalPrice;

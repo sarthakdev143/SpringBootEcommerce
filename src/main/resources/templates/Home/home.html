@@ -3,27 +3,234 @@
     layout:decorate="~{layout}">
 
 <head>
-    <title>Home</title>
+    <title>FarmFresh - Buy Fresh Produce from Local Farmers</title>
+    <meta name="description"
+        content="FarmFresh is an e-commerce platform that connects local farmers with buyers seeking fresh and locally sourced produce.">
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
 </head>
 
 <body>
     <div layout:fragment="content" class="container">
-        
-        <div th:if="${param.error}">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Oops!</strong> Login failed. Please check your credentials and try again.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="jumbotron rounded-3 p-5 mb-4 bg-cover">
+            <div class="bg-overlay"></div>
+            <div class="jumbotron-content">
+                <h1 class="display-4 fw-bold">Welcome to FarmFresh</h1>
+                <p class="lead">Discover fresh, locally grown produce from farmers in your area.</p>
+                <hr class="my-4">
+                <p>Browse our selection of fruits, vegetables, and other farm products, and support your local farming
+                    community.</p>
             </div>
         </div>
-        <div th:if="${param.logout}">
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> You have been logged out successfully.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-    
-        <h1>Home page</h1>
 
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">For Buyers</h5>
+                        <p class="card-text">Explore a wide range of fresh produce from local farmers and support
+                            sustainable agriculture.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">For Sellers</h5>
+                        <p class="card-text">Sell your farm-fresh produce directly to consumers and expand your reach.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">About Us</h5>
+                        <p class="card-text">Learn more about our mission to support local agriculture and connect
+                            communities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h2>Featured Products</h2>
+                <p>Check out some of our most popular farm-fresh products:</p>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://source.unsplash.com/400x300/?vegetables" class="card-img-top"
+                                alt="Fresh Vegetables">
+                            <div class="card-body">
+                                <h5 class="card-title">Fresh Vegetables</h5>
+                                <p class="card-text">Locally grown, nutrient-rich vegetables straight from the farm.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://source.unsplash.com/400x300/?fruits" class="card-img-top"
+                                alt="Fresh Fruits">
+                            <div class="card-body">
+                                <h5 class="card-title">Fresh Fruits</h5>
+                                <p class="card-text">Juicy and flavorful fruits picked at peak ripeness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2>Why Choose FarmFresh?</h2>
+                <p>At FarmFresh, we believe in supporting local agriculture and providing our customers with the
+                    freshest, highest-quality produce possible. By connecting directly with local farmers, we eliminate
+                    the middlemen and ensure that you receive farm-fresh goods at affordable prices.</p>
+                <p>Our mission is to promote sustainable farming practices, reduce food waste, and strengthen the bond
+                    between communities and their local food sources. When you choose FarmFresh, you're not only getting
+                    delicious, nutritious produce – you're also contributing to a more environmentally friendly and
+                    socially responsible food system.</p>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h2>From Our Blog</h2>
+                <div class="card mb-4">
+                    <img src="https://source.unsplash.com/800x400/?farming" class="card-img-top" alt="Farming">
+                    <div class="card-body">
+                        <h5 class="card-title">5 Reasons to Buy Local Produce</h5>
+                        <p class="card-text">Learn why supporting local farmers and buying fresh produce is better for
+                            your health, the environment, and the community. By choosing locally grown fruits and
+                            vegetables, you're not only enjoying the freshest, most flavorful produce – you're also
+                            reducing your carbon footprint, supporting small businesses, and preserving valuable
+                            farmland.</p>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <img src="https://source.unsplash.com/800x400/?seasonal-produce" class="card-img-top"
+                        alt="Seasonal Produce">
+                    <div class="card-body">
+                        <h5 class="card-title">Seasonal Produce Guide: What's in Season Now?</h5>
+                        <p class="card-text">Discover what fruits and vegetables are in season and at their peak
+                            freshness this month. By eating seasonally, you'll not only enjoy the best flavors and
+                            textures but also benefit from the nutritional advantages of consuming produce at its prime.
+                            Our guide will help you plan your meals and make the most of the bountiful harvests.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h2>Join Our Newsletter</h2>
+                <p>Subscribe to our newsletter and stay up-to-date with the latest news, offers, and farm-fresh produce
+                    updates.</p>
+                <form>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Enter your email">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h2>Meet Our Farmers</h2>
+                <p>At FarmFresh, we're proud to work with a diverse group of local farmers who are dedicated to
+                    sustainable and ethical farming practices. Get to know some of the hardworking individuals who make
+                    our fresh, high-quality produce possible:</p>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://source.unsplash.com/400x300/?farmer" class="card-img-top" alt="Farmer">
+                            <div class="card-body">
+                                <h5 class="card-title">John Doe</h5>
+                                <p class="card-text">John is a fourth-generation farmer who specializes in organic
+                                    vegetable cultivation. His commitment to sustainable farming practices and passion
+                                    for providing nutritious, chemical-free produce make him a valued partner.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://source.unsplash.com/400x300/?farmer-woman" class="card-img-top"
+                                alt="Farmer">
+                            <div class="card-body">
+                                <h5 class="card-title">Jane Smith</h5>
+                                <p class="card-text">Jane is a passionate fruit grower who believes in using
+                                    regenerative farming techniques to preserve the land for future generations. Her
+                                    orchard is a haven for diverse plant and animal life, and her fruits are bursting
+                                    with natural flavors.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2>Shop by Category</h2>
+                <p>Browse our wide selection of farm-fresh produce by category:</p>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">Fruits</a>
+                    <a href="#" class="list-group-item list-group-item-action">Vegetables</a>
+                    <a href="#" class="list-group-item list-group-item-action">Herbs</a>
+                    <a href="#" class="list-group-item list-group-item-action">Dairy & Eggs</a>
+                    <a href="#" class="list-group-item list-group-item-action">Grains & Legumes</a>
+                    <a href="#" class="list-group-item list-group-item-action">Honey & Jams</a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">What Our Customers Say</h2>
+                <div id="testimonialCarousel" class="carousel slide testimonial-carousel" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <blockquote class="blockquote text-center">
+                                <p class="mb-4">"I've been ordering from FarmFresh for over a year now, and I can't say
+                                    enough good things about their service and the quality of their produce. Everything
+                                    is always fresh, flavorful, and arrives in perfect condition. I love supporting
+                                    local farmers and knowing exactly where my food comes from."</p>
+                                <footer class="blockquote-footer">Sarah L.</footer>
+                            </blockquote>
+                        </div>
+                        <div class="carousel-item">
+                            <blockquote class="blockquote text-center">
+                                <p class="mb-4">"FarmFresh has made it so easy for me to incorporate more fresh,
+                                    seasonal produce into my family's meals. The convenience of online ordering and
+                                    prompt delivery is a game-changer, and the produce is always top-notch. We're
+                                    hooked!"</p>
+                                <footer class="blockquote-footer">Michael T.</footer>
+                            </blockquote>
+                        </div>
+                        <div class="carousel-item">
+                            <blockquote class="blockquote text-center">
+                                <p class="mb-4">"I love the variety of products available on FarmFresh. From staples
+                                    like apples and carrots to more unique offerings like microgreens and heirloom
+                                    tomatoes, there's always something new and exciting to try. It's been a pleasure
+                                    supporting local agriculture through this platform."</p>
+                                <footer class="blockquote-footer">Emily P.</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
