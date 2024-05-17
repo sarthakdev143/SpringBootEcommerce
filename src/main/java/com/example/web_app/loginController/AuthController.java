@@ -26,7 +26,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
-@SuppressWarnings("null")
 @Controller
 public class AuthController {
 
